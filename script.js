@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Attach tactile audio feedback to tactile components
-  const tactileSelectors = '.skeuo-btn, .skeuo-icon-btn, .channel-row';
+  const tactileSelectors = '.skeuo-btn, .skeuo-icon-btn, .channel-row, .nav-link, .tech-tag, .chip, .collab-pill';
   document.querySelectorAll(tactileSelectors).forEach(el => {
     el.addEventListener('click', () => {
       playTactileAudio('click');
@@ -140,38 +140,51 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* --------------------------------------------------------------------------
-     7. TWO-WAY SCROLL FADE SYSTEM (Fade in on scroll down, fade out on scroll up)
+     5. SCROLL SPY & SECTION TRACKING
      -------------------------------------------------------------------------- */
-  const reachSection = document.getElementById('reach-me');
   const scrollDownHint = document.getElementById('scrollDownHint');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section[id]');
 
-  let scrollFadeRaf = null;
-  function updateScrollFade() {
-    if (!reachSection) return;
+  function updateScrollSpy() {
+    const scrollY = window.scrollY || window.pageYOffset;
 
-    if (scrollFadeRaf) cancelAnimationFrame(scrollFadeRaf);
-    scrollFadeRaf = requestAnimationFrame(() => {
-      const scrollY = window.scrollY || window.pageYOffset;
-      const threshold = 50;
-
-      if (scrollY > threshold) {
-        reachSection.classList.add('visible');
-        if (scrollDownHint) scrollDownHint.classList.add('hidden');
+    if (scrollDownHint) {
+      if (scrollY > 60) {
+        scrollDownHint.classList.add('hidden');
       } else {
-        reachSection.classList.remove('visible');
-        if (scrollDownHint) scrollDownHint.classList.remove('hidden');
+        scrollDownHint.classList.remove('hidden');
+      }
+    }
+
+    // Determine current section in view
+    let currentSectionId = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 140;
+      const height = sec.offsetHeight;
+      if (scrollY >= top && scrollY < top + height) {
+        currentSectionId = sec.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('data-nav') === currentSectionId) {
+        link.classList.add('active');
       }
     });
   }
 
-  window.addEventListener('scroll', updateScrollFade, { passive: true });
-  updateScrollFade(); // Run immediately on load
+  window.addEventListener('scroll', updateScrollSpy, { passive: true });
+  updateScrollSpy();
 
   /* --------------------------------------------------------------------------
-     5. DYNAMIC CIRCULAR SPOTLIGHT 1PX BORDER (Cursor Proximity Spotlight)
+     6. DYNAMIC CIRCULAR SPOTLIGHT 1PX BORDER (Cursor Proximity Spotlight)
      -------------------------------------------------------------------------- */
-  const spotlightTargets = document.querySelectorAll('.hero-card, .channel-row');
-  const SPOTLIGHT_RADIUS = 150; // Circular reach in pixels from cursor to box edge
+  const spotlightTargets = document.querySelectorAll(
+    '.hero-card, .about-card, .experience-card, .stack-card, .project-card, .channel-row'
+  );
+  const SPOTLIGHT_RADIUS = 160; // Circular reach in pixels from cursor to box edge
 
   let mouseX = -9999;
   let mouseY = -9999;
