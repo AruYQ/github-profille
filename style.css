@@ -83,6 +83,23 @@ body[data-theme="braun"] {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Universal Hyperlink Reset (Prevent underlines & browser visited color change) */
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
 html {
   scroll-behavior: smooth;
   font-size: 16px;
@@ -190,7 +207,9 @@ body {
 }
 
 /* Tactile Push Buttons */
-.skeuo-btn {
+.skeuo-btn,
+.skeuo-btn:link,
+.skeuo-btn:visited {
   font-family: var(--font-main);
   font-size: 0.92rem;
   font-weight: 600;
@@ -207,7 +226,7 @@ body {
   box-shadow: none;
   cursor: pointer;
   user-select: none;
-  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease, color 0.25s ease;
   position: relative;
 }
 
@@ -335,6 +354,16 @@ body {
   font-weight: 700;
   font-size: 0.92rem;
   letter-spacing: -0.01em;
+  text-decoration: none;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-brand:link,
+.nav-brand:visited {
+  color: var(--text-primary);
+  text-decoration: none;
 }
 
 .nav-center-badge {
@@ -369,7 +398,9 @@ body {
   position: relative;
 }
 
-.scroll-down-hint {
+.scroll-down-hint,
+.scroll-down-hint:link,
+.scroll-down-hint:visited {
   margin-top: 24px;
   padding: 8px 20px;
   gap: 10px;
@@ -387,6 +418,7 @@ body {
   color: var(--accent-crimson);
   opacity: 1;
   transform: translateY(2px);
+  text-decoration: none;
 }
 
 .scroll-down-hint.hidden {
@@ -931,11 +963,20 @@ body {
   padding-top: 14px;
 }
 
-.project-btn {
+.project-btn,
+.project-btn:link,
+.project-btn:visited {
   padding: 8px 18px;
   font-size: 0.86rem;
   gap: 8px;
   border-radius: 12px;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.project-btn:hover {
+  color: var(--accent-crimson);
+  text-decoration: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -950,7 +991,9 @@ body {
   border-radius: 9999px;
 }
 
-.nav-link {
+.nav-link,
+.nav-link:link,
+.nav-link:visited {
   font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 600;
@@ -966,6 +1009,7 @@ body {
   color: var(--accent-crimson);
   background: var(--bg-body);
   box-shadow: var(--raised-btn);
+  text-decoration: none;
 }
 
 /* Vertical List of Horizontal Channel Rows (Reference Design) */
@@ -977,7 +1021,9 @@ body {
   margin: 0 auto 32px;
 }
 
-.channel-row {
+.channel-row,
+.channel-row:link,
+.channel-row:visited {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1000,6 +1046,7 @@ body {
   background: var(--bg-body);
   box-shadow: var(--raised-card);
   transform: translateY(-3px);
+  text-decoration: none;
 }
 
 .row-left {
